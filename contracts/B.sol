@@ -1,9 +1,10 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import './A.sol';
+import './Errors.sol';
 
-contract B is A {
+// mixin contract
+contract B is Errors {
   function shouldRevert() external {
     revert Unauthorized();
   }
