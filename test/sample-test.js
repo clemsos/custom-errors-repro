@@ -4,12 +4,12 @@ const { ethers } = require('hardhat');
 const { assert } = require('chai');
 
 contract("Main", function () {
-  let b
+  
   
   describe('Using ethers', () => {
     it("Should return the new greeting once it's changed", async function () {
       const { address } = await readJSON('deployed.json')
-      b = await ethers.getContractAt('Main', address)
+      const b = await ethers.getContractAt('IMain', address)
       
       await assert.equal(await b.sayHello(), 'hello')
       await reverts(
@@ -24,8 +24,8 @@ contract("Main", function () {
       const { address } = await readJSON('deployed.json')
 
       // parse using truffle
-      const B = artifacts.require('Main')
-      b = await B.at(address)
+      const B = artifacts.require('IMain')
+      const b = await B.at(address)
 
       await assert.equal(await b.sayHello(), 'hello')
       await reverts(
