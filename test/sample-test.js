@@ -1,15 +1,17 @@
 const { reverts } = require('truffle-assertions')
 const { readJSON } = require('fs-extra');
 const { ethers } = require('hardhat');
+const { assert } = require('chai');
 
-contract("B", function () {
+contract("Main", function () {
   let b
   
   describe('Using ethers', () => {
     it("Should return the new greeting once it's changed", async function () {
       const { address } = await readJSON('deployed.json')
-      b = await ethers.getContractAt('B', address)
-
+      b = await ethers.getContractAt('Main', address)
+      
+      await assert.equal(await b.sayHello(), 'hello')
       await reverts(
         b.shouldRevert(), 
         "VM Exception while processing transaction: reverted with custom error 'Unauthorized()'"
@@ -20,9 +22,12 @@ contract("B", function () {
   describe('Using truffle/web3', () => {
     it("Should return the new greeting once it's changed", async function () {
       const { address } = await readJSON('deployed.json')
-      const B = artifacts.require('B')
 
+      // parse using truffle
+      const B = artifacts.require('Main')
       b = await B.at(address)
+
+      await assert.equal(await b.sayHello(), 'hello')
       await reverts(
         b.shouldRevert(), 
         "VM Exception while processing transaction: reverted with custom error 'Unauthorized()'"

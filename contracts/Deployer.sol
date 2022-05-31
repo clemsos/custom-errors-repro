@@ -3,20 +3,20 @@ pragma solidity ^0.8.0;
 
 import '@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol';
 import '@openzeppelin/contracts/proxy/transparent/ProxyAdmin.sol';
-import './B.sol';
+import './Main.sol';
 
 // mixin contract
 contract Deployer {
   
   // store proxy admin
   ProxyAdmin private proxyAdmin;
-  B impl;
+  Main impl;
 
   event NewProxy(address indexed newAddress);
 
   function initialize() public {
     proxyAdmin = new ProxyAdmin();
-    impl = new B();
+    impl = new Main();
   }
 
   function create() public {
