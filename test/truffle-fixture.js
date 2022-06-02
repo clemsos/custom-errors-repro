@@ -16,15 +16,9 @@ module.exports = async () => {
 
   // set address
   await f.setImpl(impl.address)
-
-  // create instance
-  const tx = await f.create()
-  const { events } = await tx.wait()
-  const { args } = events.find(({ event }) => event === 'NewProxy')
   
   // save addresses
   await outputJSON('deployed.json', { 
-    address: args.newAddress,
     deployer: f.address,
   })
 }

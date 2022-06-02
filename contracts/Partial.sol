@@ -5,7 +5,13 @@ import './Errors.sol';
 
 // mixin contract
 contract Partial is Errors {
+  function _isAuthorized() internal view {
+    if(msg.sender != address(0)) {
+      revert Unauthorized();
+    }
+  }
+
   function shouldRevert() external {
-    revert Unauthorized();
+    _isAuthorized();
   }
 }
