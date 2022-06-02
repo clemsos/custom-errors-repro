@@ -19,7 +19,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 const settings = {
   optimizer: {
     enabled: true,
-    runs: 4400,
+    runs: 800,
   },
   outputSelection: {
     '*': {
@@ -34,7 +34,7 @@ const settings = {
 module.exports = {
   solidity: {
     compilers: [ 
-      { version: "0.8.4", settings },
+      { version: "0.8.11", settings },
     ]
   }
   
